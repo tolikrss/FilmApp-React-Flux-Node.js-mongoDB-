@@ -1,0 +1,63 @@
+.Film {
+    height: auto;
+    float: left;
+    background-color: yellow;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    border-radius: 2px;
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: box-shadow .3s;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    @media (min-width: 320px) {
+        width: 300px;
+    }
+    @media (min-width: 768px) {
+        width: 600px;
+    }
+    @media (min-width: 1200px) {
+        width: 1000px;
+    }
+    @media (min-width: 1600px) {
+        width: 1400px;
+    }
+    
+    &:hover {
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+        .Film__del-icon {
+            display: block;
+        }
+    }
+}
+
+.title {
+    margin: 0;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+.Film__title {
+    &.content {
+        font-size: 18px;
+    }
+}
+.content {
+    font-weight: bold;
+}
+
+.Film__title {
+    &.content {
+        font-size: 18px;
+    }
+}
+
+
+.Film__del-icon {
+    font-size: 28px;
+    position: absolute;
+    top:5px;
+    right:5px;
+    display: none;
+    color: rgba(0,0,0,0.6);
+    cursor: pointer;
+}
