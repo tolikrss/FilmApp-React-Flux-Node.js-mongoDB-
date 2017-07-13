@@ -1,15 +1,40 @@
 import React from 'react';
 import Upload from './Upload.jsx';
 
+import FormErrors from './FormErrors.jsx';
+
 import './FilmEditor.less';
 
 const FilmEditor = React.createClass({
     getInitialState() {
         return {
             title: '',
+            titleValid: false,
             releaseYear: '',
+            releaseYearValid: false,
             format: '',
+            formatValid: false,
             starsString: '',
+            starsStringValid: false,
+            formValid: false,
+            formErrors: {
+                title: {
+                    title: 'Title',
+                    error: ''                    
+                },
+                releaseYear: {
+                    title: 'Release year',
+                    error: ''                    
+                },
+                format: {
+                    title: 'Format',
+                    error: ''                    
+                },
+                starsString: {
+                    title: 'Stars',
+                    error: ''                    
+                },
+            },
             findByTitle: '',
             findByStars: ''
         };
@@ -51,24 +76,27 @@ const FilmEditor = React.createClass({
         this.setState({ findByTitle: event.target.value });
     },
 
-    handleStarsChange(event) {
-        this.setState({ starsString: event.target.value });
-    },
+    // handleStarsChange(event) {
+    //     this.setState({ starsString: event.target.value });
+    // },
 
-    handleFormatChange(event) {
-        this.setState({ format: event.target.value });
-    },
+    // handleFormatChange(event) {
+    //     this.setState({ format: event.target.value });
+    // },
 
-    handleReleaseYearChange(event) {
-        this.setState({ releaseYear: event.target.value });
-    },
+    // handleReleaseYearChange(event) {
+    //     this.setState({ releaseYear: event.target.value });
+    // },
 
-    handleTitleChange(event) {
-        if (event.target.value.length > 0) {
-           event.target.style.borderColor = "red"; // do something
-        }
-        console.dir(event.target.style.borderColor);
-        this.setState({ title: event.target.value });
+    // handleTitleChange(event) {
+    //     this.setState({ title: event.target.value });
+    // },
+
+    handleUserInput(e) {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({[name]: value},
+                    () => { this.validateField(name, value) });
     },
 
     handleFilmAdd() {
@@ -82,67 +110,134 @@ const FilmEditor = React.createClass({
         this.setState({ title: '', releaseYear: '', format: '', starsString: '', findByTitle: '', findByStars: '' });
     },
 
+    validateField(fieldName, value) {
+        let fieldValidationErrors = this.state.formErrors;
+        let titleValid = this.state.titleValid;
+        let releaseYearValid = this.state.releaseYearValid;
+        let formatValid = this.state.formatValid;
+        let starsStringValid = this.state.starsStringValid;
+
+
+        formatValid = this.state.format.length > 0;
+        fieldValidationErrors.format.error = formatValid  ? '' : ' is not selected';
+
+        titleValid = this.state.title.length >= 1;
+        fieldValidationErrors.title.error = titleValid ? '' : ' is too short';
+              
+        releaseYearValid = +this.state.releaseYear >= 1895; // year of release first film in world
+        fieldValidationErrors.releaseYear.error = releaseYearValid ? '': ' is less than possible';
+             
+        
+        starsStringValid = this.state.starsString.length >= 1;
+        fieldValidationErrors.starsString.error = starsStringValid ? '': ' is too short';
+
+        // switch(fieldName) {
+        //     case 'title':
+        //         titleValid = value.length >= 1;
+        //         fieldValidationErrors.title = titleValid ? '' : ' is invalid';
+        //         break;
+        //     case 'releaseYear':
+        //         releaseYearValid = value.length >= 4;
+        //         fieldValidationErrors.releaseYear = releaseYearValid ? '': ' is too short';
+        //         break;
+        //     case 'format':
+        //         formatValid = value.length > 0;
+        //         fieldValidationErrors.format = formatValid  ? '' : ' is invalid';
+        //         break;
+        //     case 'starsString':
+        //         starsStringValid = value.length >= 1;
+        //         fieldValidationErrors.starsString = starsStringValid ? '': ' is too short';
+        //         break;
+        //     default:
+        //         break;
+        // };
+
+        this.setState({formErrors: fieldValidationErrors,
+                        titleValid: titleValid,
+                        releaseYearValid: releaseYearValid,
+                        formatValid: formatValid,
+                        starsStringValid: starsStringValid
+        }, this.validateForm);
+    },
+
+    validateForm() {
+        this.setState({formValid: this.state.titleValid && this.state.releaseYearValid && this.state.formatValid && this.state.starsStringValid});
+    },
+
+    errorClass(error) {
+        return(error.length === 0 ? '' : 'FilmEditor__has-error');
+    },
+
     render() {
         return (
             <div className='FilmEditor'>
                 <div className="FilmEditor__left">
-                    <input
+                    <input 
                         type='text'
-                        className='FilmEditor__title'
+                        name='title'
+                        className={`FilmEditor__title ${this.errorClass(this.state.formErrors.title.error)}`}
                         placeholder='Enter title'
                         value={this.state.title}
-                        onChange={this.handleTitleChange}
+                        onChange={this.handleUserInput}
                     />
                     <input
                         type='number'
-                        className='FilmEditor__title'
+                        name='releaseYear'
+                        className={`FilmEditor__title ${this.errorClass(this.state.formErrors.releaseYear.error)}`}
                         placeholder='Enter release year'
                         value={this.state.releaseYear}
-                        onChange={this.handleReleaseYearChange}
+                        onChange={this.handleUserInput}
                         min="1895"
                         max="2020"
                     />
-                    <label className="FilmEditor__radio-button">
+                    <label className="FilmEditor__radio-button" style={(this.state.format === "VHS") ? {color: "#3ac569", fontWeight: "bold"} : {}}>
                         <input 
                             type="radio" 
                             value="VHS"  
-                            checked={this.state.format === "VHS"} 
-                            onChange={this.handleFormatChange} 
+                            name='format'
+                            checked={this.state.format === "VHS"}
+                            onChange={this.handleUserInput} 
                         />
                             VHS
                     </label>
-                    <label className="FilmEditor__radio-button">
+                    <label className="FilmEditor__radio-button" style={(this.state.format === "DVD") ? {color: "#3ac569", fontWeight: "bold"} : {}}>
                         <input 
                             type="radio" 
                             value="DVD"  
+                            name='format'
                             checked={this.state.format === "DVD"} 
-                            onChange={this.handleFormatChange} 
+                            onChange={this.handleUserInput} 
                         />
                             DVD
                     </label>
-                    <label className="FilmEditor__radio-button">
+                    <label className="FilmEditor__radio-button" style={(this.state.format === "Blu-Ray") ? {color: "#3ac569", fontWeight: "bold"} : {}}>
                         <input 
                             type="radio" 
                             value="Blu-Ray"  
+                            name='format'
                             checked={this.state.format === "Blu-Ray"} 
-                            onChange={this.handleFormatChange} 
+                            onChange={this.handleUserInput} 
                         />
                             Blu-Ray
                     </label>
                     
                     <textarea
                         placeholder='Enter stars'
+                        name='starsString'
                         rows={5}
-                        className='FilmEditor__text'
+                        className={`FilmEditor__text ${this.errorClass(this.state.formErrors.starsString.error)}`}
                         value={this.state.starsString}
-                        onChange={this.handleStarsChange}
+                        onChange={this.handleUserInput}
                     />
-
+                    <div className="panel panel-default">
+                        <FormErrors formErrors={this.state.formErrors} />
+                    </div>
                     <div className='FilmEditor__footer'>
                         <button
                             className='FilmEditor__button'
-                            disabled={!this.state.title}
+                            disabled={!this.state.formValid}
                             onClick={this.handleFilmAdd}
+                            style={ !this.state.formValid ? {backgroundColor: "grey", cursor: "not-allowed"} : {}}
                         >
                         <i className="fa fa-plus" aria-hidden="true"></i>
                             Add film
@@ -161,6 +256,7 @@ const FilmEditor = React.createClass({
                         <button
                             className='FilmEditor__button'
                             disabled={!this.state.findByTitle}
+                            style={ !this.state.findByTitle ? {backgroundColor: "grey", cursor: "not-allowed"} : {}}
                             onClick={this.handleFindByTitle}
                         >
                         <i className="fa fa-search" aria-hidden="true"></i>
@@ -180,17 +276,13 @@ const FilmEditor = React.createClass({
                             className='FilmEditor__button'
                             disabled={!this.state.findByStars}
                             onClick={this.handleFindByStars}
+                            style={ !this.state.findByStars ? {backgroundColor: "grey", cursor: "not-allowed"} : {}}
                         >
                         <i className="fa fa-search" aria-hidden="true"></i>
                             Find by stars
                         </button>
                     </div>
                     <div>
-                        {/*<label className="FilmEditor__file-label">
-                            <input  className="FilmEditor__inputfile" type="file" onChange={this.handleFileUpload} />    
-                            <i className="fa fa-upload" aria-hidden="true"></i>
-                                Choose a file to upload
-                        </label>*/}
                         <Upload onStartUpload={this.onUploadFileDrop}></Upload>
                     </div>
                     <div className="FilmEditor__additional-functions">

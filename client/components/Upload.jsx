@@ -50,6 +50,7 @@ const Upload = React.createClass({
                         className='Upload__button'
                         disabled={!this.state.files.length}
                         onClick={this.handleStartUpload}
+                        style={ !this.state.files.length ? {backgroundColor: "grey", cursor: "not-allowed"} : {}}
                     >
                     <i className="fa fa-upload" aria-hidden="true"></i>
                         Upload
