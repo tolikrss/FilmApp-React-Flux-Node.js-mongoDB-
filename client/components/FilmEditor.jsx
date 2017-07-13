@@ -1,4 +1,5 @@
 import React from 'react';
+import Upload from './Upload.jsx';
 
 import './FilmEditor.less';
 
@@ -26,7 +27,10 @@ const FilmEditor = React.createClass({
         const file = e.target.files[0];
         this.props.onUploadRequest(file);
     },
-    
+    onUploadFileDrop(file) {
+        this.props.onUploadRequest(file);
+    },
+
     handleFindByStars() {
         const stars = this.state.findByStars;
         this.props.onFindByStars(stars);
@@ -60,6 +64,10 @@ const FilmEditor = React.createClass({
     },
 
     handleTitleChange(event) {
+        if (event.target.value.length > 0) {
+           event.target.style.borderColor = "red"; // do something
+        }
+        console.dir(event.target.style.borderColor);
         this.setState({ title: event.target.value });
     },
 
@@ -91,10 +99,12 @@ const FilmEditor = React.createClass({
                         placeholder='Enter release year'
                         value={this.state.releaseYear}
                         onChange={this.handleReleaseYearChange}
+                        min="1895"
+                        max="2020"
                     />
                     <label className="FilmEditor__radio-button">
                         <input 
-                            type="radio" name="address" 
+                            type="radio" 
                             value="VHS"  
                             checked={this.state.format === "VHS"} 
                             onChange={this.handleFormatChange} 
@@ -103,7 +113,7 @@ const FilmEditor = React.createClass({
                     </label>
                     <label className="FilmEditor__radio-button">
                         <input 
-                            type="radio" name="address" 
+                            type="radio" 
                             value="DVD"  
                             checked={this.state.format === "DVD"} 
                             onChange={this.handleFormatChange} 
@@ -112,7 +122,7 @@ const FilmEditor = React.createClass({
                     </label>
                     <label className="FilmEditor__radio-button">
                         <input 
-                            type="radio" name="address" 
+                            type="radio" 
                             value="Blu-Ray"  
                             checked={this.state.format === "Blu-Ray"} 
                             onChange={this.handleFormatChange} 
@@ -176,11 +186,12 @@ const FilmEditor = React.createClass({
                         </button>
                     </div>
                     <div>
-                        <label className="FilmEditor__file-label">
+                        {/*<label className="FilmEditor__file-label">
                             <input  className="FilmEditor__inputfile" type="file" onChange={this.handleFileUpload} />    
                             <i className="fa fa-upload" aria-hidden="true"></i>
                                 Choose a file to upload
-                        </label>
+                        </label>*/}
+                        <Upload onFileDrop={this.onUploadFileDrop}></Upload>
                     </div>
                     <div className="FilmEditor__additional-functions">
                         <button
