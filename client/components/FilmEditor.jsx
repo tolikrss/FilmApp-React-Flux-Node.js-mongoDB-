@@ -14,7 +14,7 @@ const FilmEditor = React.createClass({
             findByStars: ''
         };
     },
-    
+
     handleRefresh() {
         this.props.onRefresh();
     },
@@ -191,7 +191,7 @@ const FilmEditor = React.createClass({
                             <i className="fa fa-upload" aria-hidden="true"></i>
                                 Choose a file to upload
                         </label>*/}
-                        <Upload onFileDrop={this.onUploadFileDrop}></Upload>
+                        <Upload onStartUpload={this.onUploadFileDrop}></Upload>
                     </div>
                     <div className="FilmEditor__additional-functions">
                         <button

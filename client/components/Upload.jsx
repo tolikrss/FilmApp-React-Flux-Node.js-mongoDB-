@@ -15,11 +15,12 @@ const Upload = React.createClass({
         this.state.files = files;
         console.log('Upload.state.files:');
         console.dir(this.state.files);
+        this.forceUpdate();
     },
 
     handleStartUpload() {
         console.log('handleStartUpload() worked');
-        this.props.onFileDrop(this.state.files[0]);
+        this.props.onStartUpload(this.state.files[0]);
         this.state.files = [];
     },
 
@@ -33,17 +34,14 @@ const Upload = React.createClass({
                     </Dropzone>
                     </div>
                     <div>
-                        <h2 className="upload__list-header">List:</h2>
-                        {/*<h2 className="upload__list-header">{(!!this.state.files.length) ? "File to upload:" : ""}</h2>*/}
+                        <h2 className="upload__list-header">{(!!this.state.files.length) ? "File to upload:" : "File not selected"}</h2>
+                        
                         <ul className="upload__list">
-                        {/*{
-                            this.state.files.map(f => <li>{f.name} - {f.size} bytes</li>)
-                        }*/}
-                        {
-                            this.state.files.forEach(function(element) {
-                                return element.name
-                            })
-                        }
+                            {
+                                this.state.files.map(f =>
+                                    <li>{f.name} - {f.size} bytes</li>
+                                )
+                            }
                         </ul>
                     </div>
                 </section>
