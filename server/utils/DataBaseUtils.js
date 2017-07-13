@@ -6,23 +6,27 @@ import config from '../../etc/config.json';
 
 const Film = mongoose.model('Film');
 
-export function setUpConnection() { 
+export function setUpConnection() {
     mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`);
 }
 
-export function listFilms() { 
-    return Film.find().sort({ title: 1 }); 
-} 
+export function listFilms() {
+    return Film.find().sort({ title: 1 });
+}
 
-export function listFilmsFindTitle(param) { 
-    return Film.find({ title: { $regex: param } }).sort({ title: 1 }); 
-} 
+export function listFilmsFindTitle(param) {
+    return Film.find({
+        title: { $regex: new RegExp(param.toLowerCase(), "i") }
+    }).sort({ title: 1 });
+}
 
 export function listFilmsFindStars(param) {
-    return Film.find({ stars: { $regex: param } }).sort({ title: 1 });
-} 
+    return Film.find({
+        stars: { $regex: new RegExp(param.toLowerCase(), "i") }
+    }).sort({ title: 1 });
+}
 
-export function createFilm(data) { 
+export function createFilm(data) {
     const film = new Film({
         title: data.title,
         releaseYear: data.releaseYear,
@@ -30,10 +34,10 @@ export function createFilm(data) {
         stars: data.stars
     });
 
-    return film.save(); 
+    return film.save();
 }
 
-export function uploadFilms(films) { 
+export function uploadFilms(films) {
 
     for (var i = 0; i < films.length - 1; i++) {
         const film = new Film({
@@ -52,14 +56,14 @@ export function uploadFilms(films) {
         stars: films[films.length - 1].stars
     });
 
-    return film.save(); 
+    return film.save();
 }
 
-export function deleteFilm(id) { 
+export function deleteFilm(id) {
     return Film.findById(id).remove();
 }
 
-export function deleteAllFilms() { 
+export function deleteAllFilms() {
     return Film.remove({});
 }
 
