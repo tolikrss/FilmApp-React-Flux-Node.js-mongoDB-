@@ -6,22 +6,21 @@ import './Upload.less';
 const Upload = React.createClass({
     getInitialState() {
         return {
-            files: []
+            files: [],
+            uploadValid: false
         };
     },
 
     onDrop(files) {
-        console.log('onDrop() worked');
         this.state.files = files;
-        console.log('Upload.state.files:');
-        console.dir(this.state.files);
+        console.dir(files[0]);
         this.forceUpdate();
     },
 
     handleStartUpload() {
-        console.log('handleStartUpload() worked');
         this.props.onStartUpload(this.state.files[0]);
         this.state.files = [];
+        this.state.uploadValid = false;
     },
 
     render() {
@@ -38,9 +37,31 @@ const Upload = React.createClass({
                         
                         <ul className="upload__list">
                             {
-                                this.state.files.map(f =>
-                                    <li>{f.name} - {f.size} bytes</li>
+                                this.state.files.map((f, i) =>
+                                    <li key={i}>
+                                        <p>{f.name} - {f.size} bytes</p>
+                                        <p>
+                                            {
+                                                (f.type !== "text/plain") ? 
+                                                    (
+                                                        (
+                                                            () => {
+                                                                this.state.uploadValid = false;
+                                                                return <span><i className='fa fa-exclamation-triangle' aria-hidden='true'></i> Incorrect file type, must be .txt </span>
+                                                            }
+                                                        )()
+                                                    )
+                                                    :
+                                                    (
+                                                        (() => {
+                                                            this.state.uploadValid = true;
+                                                        })()
+                                                    )
+                                            }
+                                        </p>
+                                    </li>
                                 )
+                                
                             }
                         </ul>
                     </div>
@@ -48,9 +69,9 @@ const Upload = React.createClass({
                 <div>
                     <button
                         className='Upload__button'
-                        disabled={!this.state.files.length}
+                        disabled={!this.state.uploadValid}
                         onClick={this.handleStartUpload}
-                        style={ !this.state.files.length ? {backgroundColor: "grey", cursor: "not-allowed"} : {}}
+                        style={ !this.state.uploadValid ? {backgroundColor: "grey", cursor: "not-allowed"} : {}}
                     >
                     <i className="fa fa-upload" aria-hidden="true"></i>
                         Upload

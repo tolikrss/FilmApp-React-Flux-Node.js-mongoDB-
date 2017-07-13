@@ -55,39 +55,43 @@ app.post('/upload', upload.single('file'), (req, res) => {
     const file = req.file; // file passed from client
     const meta = req.body; // all other values passed from the client, like name, etc..
 
-    fs.readFile(`uploads/${file.originalname}`, function(err, data) {
-        if (err) throw err;
+    try {
+        fs.readFile(`uploads/${file.originalname}`, function(err, data) {
+            if (err) throw err;
 
-        var arrayStr = data.toString().split("\n\n");
-        var arrayObj = [];
+            var arrayStr = data.toString().split("\n\n");
+            var arrayObj = [];
 
-        for (var i = 0; i < arrayStr.length; i++) {
-            arrayStr[i] = arrayStr[i].split("\n");
-        }
-        var i = 0;
-        while (i < arrayStr.length) {
-            while (arrayStr[i].indexOf("") !== -1) {
-                arrayStr[i].splice(arrayStr[i].indexOf(""), 1);
+            for (var i = 0; i < arrayStr.length; i++) {
+                arrayStr[i] = arrayStr[i].split("\n");
             }
-            if (arrayStr[i].length === 0) {
-                arrayStr.splice(i, 1);
-            } else {
-                i++;
+            var i = 0;
+            while (i < arrayStr.length) {
+                while (arrayStr[i].indexOf("") !== -1) {
+                    arrayStr[i].splice(arrayStr[i].indexOf(""), 1);
+                }
+                if (arrayStr[i].length === 0) {
+                    arrayStr.splice(i, 1);
+                } else {
+                    i++;
+                }
             }
-        }
-        arrayStr.forEach(function(elem, i, array) {
-            let elemArrayObj = {};
-            let arrayStars = [];
-            elemArrayObj.title = elem[0].substring(7);
-            elemArrayObj.releaseYear = elem[1].substring(14);
-            elemArrayObj.format = elem[2].substring(8);
-            arrayStars = elem[3].substring(7).split(', ');
-            elemArrayObj.stars = arrayStars;
-            arrayObj.push(elemArrayObj);
+            arrayStr.forEach(function(elem, i, array) {
+                let elemArrayObj = {};
+                let arrayStars = [];
+                elemArrayObj.title = elem[0].substring(7);
+                elemArrayObj.releaseYear = elem[1].substring(14);
+                elemArrayObj.format = elem[2].substring(8);
+                arrayStars = elem[3].substring(7).split(', ');
+                elemArrayObj.stars = arrayStars;
+                arrayObj.push(elemArrayObj);
+            });
+
+            db.uploadFilms(arrayObj).then((data) => res.send(data));
         });
-
-        db.uploadFilms(arrayObj).then((data) => res.send(data));
-    });
+    } catch(err) {
+        res.send(err);
+    }
 });
 
 // //===========================================================
