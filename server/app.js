@@ -89,7 +89,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
             db.uploadFilms(arrayObj).then((data) => res.send(data));
         });
-    } catch(err) {
+    } catch (err) {
         res.send(err);
     }
 });

@@ -7,13 +7,32 @@ const Upload = React.createClass({
     getInitialState() {
         return {
             files: [],
-            uploadValid: false
+            uploadValid: false,
+            uploadElementsLengthTrue: false
         };
+    },
+
+    filesValid() {
+        let files = this.state.files;
+
+        if(files.length === 1) {
+            this.state.uploadElementsLengthTrue = true;
+            for (var i = 0; i < files.length; i++) {
+                if(files[i].type !== "text/plain") {
+                    return this.setState({uploadValid: false});
+                } else {
+                   this.setState({uploadValid: true});
+                }
+            };
+        } else {
+            this.setState({uploadValid: false, uploadElementsLengthTrue: false});
+        }        
     },
 
     onDrop(files) {
         this.state.files = files;
         console.dir(files[0]);
+        this.filesValid();
         this.forceUpdate();
     },
 
@@ -33,7 +52,17 @@ const Upload = React.createClass({
                     </Dropzone>
                     </div>
                     <div>
-                        <h2 className="upload__list-header">{(!!this.state.files.length) ? "File to upload:" : "File not selected"}</h2>
+                        <h2 className="upload__list-header">{(!!this.state.files.length) ? (
+                            (() => {
+                                if (!this.state.uploadElementsLengthTrue) {
+                                    return <div><p><i className='fa fa-exclamation-triangle' aria-hidden='true'></i> You may select only one file </p></div>
+                                } else {
+                                    return <p>File to upload:</p>
+                                }
+                                
+                            })()
+                            
+                        ) : "File not selected"}</h2>
                         
                         <ul className="upload__list">
                             {
@@ -52,18 +81,14 @@ const Upload = React.createClass({
                                                         )()
                                                     )
                                                     :
-                                                    (
-                                                        (() => {
-                                                            this.state.uploadValid = true;
-                                                        })()
-                                                    )
+                                                    ("")
                                             }
                                         </p>
                                     </li>
                                 )
-                                
                             }
                         </ul>
+                        
                     </div>
                 </section>
                 <div>
