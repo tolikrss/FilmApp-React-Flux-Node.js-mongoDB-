@@ -31,7 +31,6 @@ const Upload = React.createClass({
 
     onDrop(files) {
         this.state.files = files;
-        console.dir(files[0]);
         this.filesValid();
         this.forceUpdate();
     },
