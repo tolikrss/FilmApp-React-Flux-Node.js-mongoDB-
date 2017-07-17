@@ -1,1 +1,1 @@
-web: npm sevserver
+web: npm server
