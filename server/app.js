@@ -31,9 +31,11 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/', function(req, res) {
-    res.send("Api server works!");
-});
+// app.set('view engine', 'jade');
+
+// app.get('/', function(req, res) {
+//     res.sendFile('public/index.html', { root: __dirname })
+// });
 
 app.get('/films', (req, res) => {
     db.listFilms().then((data) => res.send(data));
