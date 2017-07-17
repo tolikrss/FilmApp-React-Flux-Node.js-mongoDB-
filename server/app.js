@@ -31,11 +31,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-// app.set('view engine', 'jade');
 
-// app.get('/', function(req, res) {
-//     res.sendFile('public/index.html', { root: __dirname })
-// });
+app.use('/', express.static(path.join(__dirname, '../public'))); // отдача статистических файлов из /public
 
 app.get('/films', (req, res) => {
     db.listFilms().then((data) => res.send(data));
