@@ -15,14 +15,36 @@ export function listFilms() {
 }
 
 export function listFilmsFindTitle(param) {
+    let paramArr = param.split('');
+    let paramStr = '';
+
+    while (paramArr[paramArr.length - 1] === ' ') {
+        paramArr.splice((paramArr.length - 1), 1);
+    }
+    while (paramArr[0] === ' ') {
+        paramArr.splice(0, 1);
+    }
+    paramStr = paramArr.join('');
+
     return Film.find({
-        title: { $regex: new RegExp(param.toLowerCase(), "i") }
+        title: { $regex: new RegExp(paramStr.toLowerCase(), "i") }
     }).sort({ title: 1 });
 }
 
 export function listFilmsFindStars(param) {
+    let paramArr = param.split('');
+    let paramStr = '';
+
+    while (paramArr[paramArr.length - 1] === ' ') {
+        paramArr.splice((paramArr.length - 1), 1);
+    }
+    while (paramArr[0] === ' ') {
+        paramArr.splice(0, 1);
+    }
+    paramStr = paramArr.join('');
+
     return Film.find({
-        stars: { $regex: new RegExp(param.toLowerCase(), "i") }
+        stars: { $regex: new RegExp(paramStr.toLowerCase(), "i") }
     }).sort({ title: 1 });
 }
 
