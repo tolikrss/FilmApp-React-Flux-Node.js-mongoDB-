@@ -48,19 +48,20 @@ const FilmEditor = React.createClass({
         this.props.onUploadRequest(file);
     },
 
-    handleFindByStars() {
+    handleFindByStars(value) {
         const stars = this.state.findByStars;
-        
         if(this.state.findByStars.length > 0) {
             this.props.onFindByStars(stars);
+        } else {
+            this.setState({ findByStars: value });
         }
-        // this.setState({ findByStars: '' });
+        // 
     },
 
     handleFindByStarsChange(event) {
         // this.setState({ findByStars: event.target.value });
         this.state.findByStars = event.target.value;
-        this.handleFindByStars();
+                this.handleFindByStars(event.target.value);
     },
 
     handleFindByTitle() {
