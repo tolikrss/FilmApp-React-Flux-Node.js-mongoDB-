@@ -40,14 +40,6 @@ const FilmEditor = React.createClass({
         };
     },
 
-    handleRefresh() {
-        this.props.onRefresh();
-    },
-
-    handleDeleteAllFilms() {
-        this.props.onDeleteAllFilms();
-    },
-
     handleFileUpload(e) {
         const file = e.target.files[0];
         this.props.onUploadRequest(file);
@@ -59,21 +51,25 @@ const FilmEditor = React.createClass({
     handleFindByStars() {
         const stars = this.state.findByStars;
         this.props.onFindByStars(stars);
-        this.setState({ title: '', releaseYear: '', format: '', starsString: '', findByTitle: '', findByStars: '' });
+        // this.setState({ findByStars: '' });
     },
 
     handleFindByStarsChange(event) {
-        this.setState({ findByStars: event.target.value });
+        // this.setState({ findByStars: event.target.value });
+        this.state.findByStars = event.target.value;
+        this.handleFindByStars();
     },
 
     handleFindByTitle() {
         const title = this.state.findByTitle;
         this.props.onFindByTitle(title);
-        this.setState({ title: '', releaseYear: '', format: '', starsString: '', findByTitle: '', findByStars: '' });
+        // this.setState({ findByTitle: '' });
     },
 
     handleFindByTitleChange(event) {
-        this.setState({ findByTitle: event.target.value });
+        // this.setState({ findByTitle: event.target.value });
+        this.state.findByTitle = event.target.value;
+        this.handleFindByTitle();
     },
 
     // handleStarsChange(event) {
@@ -285,7 +281,7 @@ const FilmEditor = React.createClass({
                     <div>
                         <Upload onStartUpload={this.onUploadFileDrop}></Upload>
                     </div>
-                    <div className="FilmEditor__additional-functions">
+                    {/*<div className="FilmEditor__additional-functions">
                         <button
                             className='FilmEditor__clear-database__button'
                             onClick={this.handleDeleteAllFilms}
@@ -300,7 +296,7 @@ const FilmEditor = React.createClass({
                         <i className="fa fa-refresh" aria-hidden="true"></i>
                             Refresh list (show all)
                         </button>
-                    </div>
+                    </div>*/}
                 </div>
             </div>
         );

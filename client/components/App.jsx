@@ -64,8 +64,8 @@ const App = React.createClass({
         return (
             <div className='App'>
                 <h2 className='App__header'>FilmsApp</h2>
-                <FilmEditor onFilmAdd={this.handleFilmAdd} onFindByTitle={this.handleFindFilmByTitle} onFindByStars={this.handleFindFilmByStars} onUploadRequest={this.handleUploadRequest} onDeleteAllFilms={this.handleDeleteAllFilms} onRefresh={this.handleRefresh} />
-                <FilmsGrid films={this.state.films} onFilmDelete={this.handleFilmDelete} />
+                <FilmEditor onFilmAdd={this.handleFilmAdd} onFindByTitle={this.handleFindFilmByTitle} onFindByStars={this.handleFindFilmByStars} onUploadRequest={this.handleUploadRequest} />
+                <FilmsGrid films={this.state.films} onFilmDelete={this.handleFilmDelete} onDeleteAllFilms={this.handleDeleteAllFilms} onRefresh={this.handleRefresh} />
             </div>
         );
     },

@@ -6,6 +6,15 @@ import Masonry from 'react-masonry-component';
 import './FilmsGrid.less';
 
 const FilmsGrid = React.createClass({
+
+    handleRefresh() {
+        this.props.onRefresh();
+    },
+
+    handleDeleteAllFilms() {
+        this.props.onDeleteAllFilms();
+    },
+    
     render() {
         const masonryOptions = {
             itemSelector: '.Film',
@@ -15,6 +24,23 @@ const FilmsGrid = React.createClass({
         };
 
         return (
+            <div>
+            <div className="FilmEditor__additional-functions">
+                        <button
+                            className='FilmEditor__clear-database__button'
+                            onClick={this.handleDeleteAllFilms}
+                        >
+                        <i className="fa fa-window-close" aria-hidden="true"></i>
+                            Delete all films
+                        </button>
+                        <button
+                            className='FilmEditor__refresh-list__button'
+                            onClick={this.handleRefresh}
+                        >
+                        <i className="fa fa-refresh" aria-hidden="true"></i>
+                            Refresh list (show all)
+                        </button>
+                    </div>
             <Masonry
                 className='FilmsGrid'
                 options={masonryOptions}
@@ -33,6 +59,7 @@ const FilmsGrid = React.createClass({
                     )
                 }
             </Masonry>
+            </div>
         );
     }
 });
