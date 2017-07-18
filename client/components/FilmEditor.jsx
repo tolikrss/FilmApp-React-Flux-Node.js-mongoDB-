@@ -242,6 +242,9 @@ const FilmEditor = React.createClass({
                 </div>
                 <div className="FilmEditor__right">
                     <div className="FilmEditor__find-by-title">
+                        <div>
+                            Find by title:
+                        </div>
                         <input
                             type='text'
                             className='FilmEditor__title'
@@ -249,7 +252,7 @@ const FilmEditor = React.createClass({
                             value={this.state.findByTitle}
                             onChange={this.handleFindByTitleChange}
                         />
-                        <button
+                        {/*<button
                             className='FilmEditor__button'
                             disabled={!this.state.findByTitle}
                             style={ !this.state.findByTitle ? {backgroundColor: "grey", cursor: "not-allowed"} : {}}
@@ -257,10 +260,13 @@ const FilmEditor = React.createClass({
                         >
                         <i className="fa fa-search" aria-hidden="true"></i>
                             Find by title
-                        </button>
+                        </button>*/}
                     </div>
                     <br/>
                     <div className="FilmEditor__find-by-stars">
+                        <div>
+                            Find by star:
+                        </div>
                         <input
                             type='text'
                             className='FilmEditor__title'
@@ -268,7 +274,7 @@ const FilmEditor = React.createClass({
                             value={this.state.findByStars}
                             onChange={this.handleFindByStarsChange}
                         />
-                        <button
+                        {/*<button
                             className='FilmEditor__button'
                             disabled={!this.state.findByStars}
                             onClick={this.handleFindByStars}
@@ -276,7 +282,7 @@ const FilmEditor = React.createClass({
                         >
                         <i className="fa fa-search" aria-hidden="true"></i>
                             Find by stars
-                        </button>
+                        </button>*/}
                     </div>
                     <div>
                         <Upload onStartUpload={this.onUploadFileDrop}></Upload>
