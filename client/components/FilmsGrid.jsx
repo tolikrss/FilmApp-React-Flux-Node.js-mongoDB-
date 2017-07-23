@@ -16,12 +16,6 @@ const FilmsGrid = React.createClass({
     },
     
     render() {
-        const masonryOptions = {
-            itemSelector: '.Film',
-            columnWidth: 1400,
-            gutter: 5,
-            isFitWidth: true
-        };
 
         return (
             <div>
@@ -41,9 +35,8 @@ const FilmsGrid = React.createClass({
                             Refresh list (show all)
                         </button>
                     </div>
-            <Masonry
+            <div
                 className='FilmsGrid'
-                options={masonryOptions}
             >
                 {
                     this.props.films.map(film =>
@@ -58,7 +51,7 @@ const FilmsGrid = React.createClass({
                         </Film>
                     )
                 }
-            </Masonry>
+            </div>
             </div>
         );
     }
