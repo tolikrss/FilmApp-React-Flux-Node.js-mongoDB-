@@ -40,13 +40,9 @@ const FilmEditor = React.createClass({
         };
     },
 
-    changeFilmsEditorState() {
-        console.log('changeFilmsGridState() from FilmsEditor worked');   
-        // this.state[name] = value;
-    },
-
     handleFileUpload(e) {
         const file = e.target.files[0];
+        this.setState({ title: '', releaseYear: '', format: '', starsString: '', findByTitle: '', findByStars: '' });
         this.props.onUploadRequest(file);
     },
     onUploadFileDrop(file) {

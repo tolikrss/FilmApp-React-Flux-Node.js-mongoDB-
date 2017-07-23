@@ -50,12 +50,15 @@ const App = React.createClass({
     },
 
     handleFindFilmByTitle(title) {
+        this.state.findByTitle = title;
         if(this.isStrNotEmpty(title)) {
             FilmsActions.findFilmByTitle(title);
         }
     },
 
     handleFindFilmByStars(stars) {
+        console.log('work');
+        this.state.findByStars = stars;
         if(this.isStrNotEmpty(stars)) {
             FilmsActions.findFilmByStars(stars);
         }
@@ -73,18 +76,12 @@ const App = React.createClass({
         FilmsActions.refreshList();
     },
 
-    test() {
-        console.dir(FilmEditor);
-        FilmEditor.changeFilmsEditorState();
-    },
-
     render() {
         return (
             <div className='App'>
-            <button onClick={this.test}>Test</button>
                 <h2 className='App__header'>FilmsApp</h2>
                 <FilmEditor onFilmAdd={this.handleFilmAdd} onFindByTitle={this.handleFindFilmByTitle} onFindByStars={this.handleFindFilmByStars} onUploadRequest={this.handleUploadRequest} onRefresh={this.handleRefresh} />
-                <FilmsGrid  films={this.state.films} onFilmDelete={this.handleFilmDelete} onDeleteAllFilms={this.handleDeleteAllFilms} onRefresh={this.handleRefresh} />
+                <FilmsGrid findByStars={this.state.findByStars} findByTitle={this.state.findByTitle}  films={this.state.films} onFilmDelete={this.handleFilmDelete} onDeleteAllFilms={this.handleDeleteAllFilms} onRefresh={this.handleRefresh} />
             </div>
         );
     },

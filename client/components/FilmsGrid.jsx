@@ -41,11 +41,23 @@ const FilmsGrid = React.createClass({
             });
         };
 
-        if (filmsList.length === 0) {
+        if (filmsList.length === 0 && !!this.props.findByTitle) {
             return <div
                         className='FilmsGrid'
                     >
-                        <h1>Not films to display</h1>
+                        <h1>No movies found for title - {this.props.findByTitle}</h1>
+                    </div>
+        } else if (filmsList.length === 0 && !!this.props.findByStars) {
+            return <div
+                        className='FilmsGrid'
+                    >
+                        <h1>No movies found for star - {this.props.findByStars}</h1>
+                    </div>
+        } else if (filmsList.length === 0) {
+            return <div
+                        className='FilmsGrid'
+                    >
+                        <h1>There are no movies in the database.</h1>
                     </div>
         }
 
