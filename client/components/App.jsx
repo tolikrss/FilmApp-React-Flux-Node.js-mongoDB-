@@ -60,9 +60,14 @@ const App = React.createClass({
         FilmsActions.refreshList();
     },
 
+    test() {
+        console.dir(FilmEditor)
+    },
+
     render() {
         return (
             <div className='App'>
+            <button onClick={this.test}>Test</button>
                 <h2 className='App__header'>FilmsApp</h2>
                 <FilmEditor onFilmAdd={this.handleFilmAdd} onFindByTitle={this.handleFindFilmByTitle} onFindByStars={this.handleFindFilmByStars} onUploadRequest={this.handleUploadRequest} onRefresh={this.handleRefresh} />
                 <FilmsGrid films={this.state.films} onFilmDelete={this.handleFilmDelete} onDeleteAllFilms={this.handleDeleteAllFilms} onRefresh={this.handleRefresh} />
