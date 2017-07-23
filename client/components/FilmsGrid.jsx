@@ -42,7 +42,11 @@ const FilmsGrid = React.createClass({
         };
 
         if (filmsList.length === 0) {
-            return <h1>Not films to display</h1>
+            return <div
+                        className='FilmsGrid'
+                    >
+                        <h1>Not films to display</h1>
+                    </div>
         }
 
         return (
@@ -72,16 +76,16 @@ const FilmsGrid = React.createClass({
                             Title <i className="fa fa-long-arrow-down" aria-hidden="true"></i>
                     </label>
                 </div>
-            <div className="FilmEditor__additional-functions">
+            <div className="FilmsGrid__additional-functions">
                         <button
-                            className='FilmEditor__clear-database__button'
+                            className='FilmsGrid__clear-database__button'
                             onClick={this.handleDeleteAllFilms}
                         >
                         <i className="fa fa-window-close" aria-hidden="true"></i>
                             Delete all films
                         </button>
                         <button
-                            className='FilmEditor__refresh-list__button'
+                            className='FilmsGrid__refresh-list__button'
                             onClick={this.handleRefresh}
                         >
                         <i className="fa fa-refresh" aria-hidden="true"></i>
