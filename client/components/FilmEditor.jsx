@@ -42,48 +42,44 @@ const FilmEditor = React.createClass({
 
     handleFileUpload(e) {
         const file = e.target.files[0];
+        this.setState({ title: '', releaseYear: '', format: '', starsString: '', findByTitle: '', findByStars: '' });
         this.props.onUploadRequest(file);
     },
     onUploadFileDrop(file) {
         this.props.onUploadRequest(file);
     },
 
-    handleFindByStars(value) {
-        const stars = this.state.findByStars;
-        if(this.state.findByStars.length > 0) {
-            this.props.onFindByStars(stars);
-        } else {
-            this.setState({ findByStars: value });
-            this.props.onRefresh();
-        }
-        // 
-    },
-
     handleFindByStarsChange(event) {
-        this.state.findByStars = event.target.value;
-                this.handleFindByStars(event.target.value);
-    },
-
-    handleFindByTitle(value) {
-        const title = this.state.findByTitle;
-        if(this.state.findByTitle.length > 0) {
-            this.props.onFindByTitle(title);
+        const star = event.target.value;
+        this.state.findByTitle = '';
+        this.state.findByStars = star;
+        if(star.length > 0) {
+            this.props.onFindByStars(star);
         } else {
-            this.setState({ findByTitle: value });
+            this.setState({ findByStars: star });
+            this.props.onFindByStars(star);
             this.props.onRefresh();
         }
     },
+
 
     handleFindByTitleChange(event) {
-        this.state.findByTitle = event.target.value;
-        this.handleFindByTitle(event.target.value);
+        const title = event.target.value;
+        this.state.findByStars = '';
+        this.state.findByTitle = title;
+        if(title.length > 0) {
+            this.props.onFindByTitle(title);
+        } else {
+            this.setState({ findByTitle: title });
+            this.props.onFindByTitle(title);
+            this.props.onRefresh();
+        }
     },
 
     handleUserInput(e) {
         const name = e.target.name;
         const value = e.target.value;
-        this.setState({[name]: value},
-                    () => { this.validateField(name, value) });
+        this.setState({[name]: value}, () => { this.validateField(name, value) });
     },
 
     handleFilmAdd() {

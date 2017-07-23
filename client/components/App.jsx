@@ -40,12 +40,27 @@ const App = React.createClass({
         FilmsActions.createFilm(filmData);
     },
 
+    isStrNotEmpty(str) {
+        for(var i = 0; i < str.length; i++) {
+            if (str[i] !== ' ') {
+                return true;
+            }
+        };
+        return false;
+    },
+
     handleFindFilmByTitle(title) {
-        FilmsActions.findFilmByTitle(title);
+        this.state.findByTitle = title;
+        if(this.isStrNotEmpty(title)) {
+            FilmsActions.findFilmByTitle(title);
+        }
     },
 
     handleFindFilmByStars(stars) {
-        FilmsActions.findFilmByStars(stars);
+        this.state.findByStars = stars;
+        if(this.isStrNotEmpty(stars)) {
+            FilmsActions.findFilmByStars(stars);
+        }
     },
 
     handleUploadRequest(file) {
@@ -65,7 +80,7 @@ const App = React.createClass({
             <div className='App'>
                 <h2 className='App__header'>FilmsApp</h2>
                 <FilmEditor onFilmAdd={this.handleFilmAdd} onFindByTitle={this.handleFindFilmByTitle} onFindByStars={this.handleFindFilmByStars} onUploadRequest={this.handleUploadRequest} onRefresh={this.handleRefresh} />
-                <FilmsGrid films={this.state.films} onFilmDelete={this.handleFilmDelete} onDeleteAllFilms={this.handleDeleteAllFilms} onRefresh={this.handleRefresh} />
+                <FilmsGrid findByStars={this.state.findByStars} findByTitle={this.state.findByTitle}  films={this.state.films} onFilmDelete={this.handleFilmDelete} onDeleteAllFilms={this.handleDeleteAllFilms} onRefresh={this.handleRefresh} />
             </div>
         );
     },
