@@ -44,13 +44,13 @@ const FilmsGrid = React.createClass({
             return <div
                         className='FilmsGrid'
                     >
-                        <h1>No movies found for title - {this.props.findByTitle}</h1>
+                        <h1>No movies found for title: "{this.props.findByTitle}"</h1>
                     </div>
         } else if (filmsList.length === 0 && !!this.props.findByStars) {
             return <div
                         className='FilmsGrid'
                     >
-                        <h1>No movies found for star - {this.props.findByStars}</h1>
+                        <h1>No movies found for star: "{this.props.findByStars}"</h1>
                     </div>
         } else if (filmsList.length === 0) {
             return <div
@@ -62,9 +62,9 @@ const FilmsGrid = React.createClass({
 
         return (
             <div>
-                <div>
+                <div className="FilmsGrid__sort">
                     <span>Sort By: </span>
-                    <label className="FilmEditor__radio-button" style={(this.state.sort === "title") ? {color: "#3ac569", fontWeight: "bold"} : {}}>
+                    <label className="FilmsGrid__radio-button" style={(this.state.sort === "title") ? {color: "#3ac569", fontWeight: "bold"} : {}}>
                         <input 
                             type="radio" 
                             value="title"  
@@ -75,7 +75,7 @@ const FilmsGrid = React.createClass({
                         />
                             Title <i className="fa fa-long-arrow-up" aria-hidden="true"></i>
                     </label>
-                    <label className="FilmEditor__radio-button" style={(this.state.sort === "titleDesc") ? {color: "#3ac569", fontWeight: "bold"} : {}}>
+                    <label className="FilmsGrid__radio-button" style={(this.state.sort === "titleDesc") ? {color: "#3ac569", fontWeight: "bold"} : {}}>
                         <input 
                             type="radio" 
                             value="titleDesc"  
@@ -87,7 +87,7 @@ const FilmsGrid = React.createClass({
                             Title <i className="fa fa-long-arrow-down" aria-hidden="true"></i>
                     </label>
                 </div>
-            <div className="FilmsGrid__additional-functions">
+            {/*<div className="FilmsGrid__additional-functions">
                         <button
                             className='FilmsGrid__clear-database__button'
                             onClick={this.handleDeleteAllFilms}
@@ -102,7 +102,7 @@ const FilmsGrid = React.createClass({
                         <i className="fa fa-refresh" aria-hidden="true"></i>
                             Refresh list (show all)
                         </button>
-                    </div>
+            </div>*/}
             <div
                 className='FilmsGrid'
             >

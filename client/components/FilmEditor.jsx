@@ -57,6 +57,7 @@ const FilmEditor = React.createClass({
             this.props.onFindByStars(star);
         } else {
             this.setState({ findByStars: star });
+            this.props.onFindByStars(star);
             this.props.onRefresh();
         }
     },
@@ -70,6 +71,7 @@ const FilmEditor = React.createClass({
             this.props.onFindByTitle(title);
         } else {
             this.setState({ findByTitle: title });
+            this.props.onFindByTitle(title);
             this.props.onRefresh();
         }
     },
