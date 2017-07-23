@@ -54,45 +54,30 @@ const FilmEditor = React.createClass({
             this.props.onFindByStars(stars);
         } else {
             this.setState({ findByStars: value });
+            this.props.onRefresh();
         }
         // 
     },
 
     handleFindByStarsChange(event) {
-        // this.setState({ findByStars: event.target.value });
         this.state.findByStars = event.target.value;
                 this.handleFindByStars(event.target.value);
     },
 
-    handleFindByTitle() {
+    handleFindByTitle(value) {
         const title = this.state.findByTitle;
         if(this.state.findByTitle.length > 0) {
             this.props.onFindByTitle(title);
+        } else {
+            this.setState({ findByTitle: value });
+            this.props.onRefresh();
         }
-        // this.setState({ findByTitle: '' });
     },
 
     handleFindByTitleChange(event) {
-        // this.setState({ findByTitle: event.target.value });
         this.state.findByTitle = event.target.value;
-        this.handleFindByTitle();
+        this.handleFindByTitle(event.target.value);
     },
-
-    // handleStarsChange(event) {
-    //     this.setState({ starsString: event.target.value });
-    // },
-
-    // handleFormatChange(event) {
-    //     this.setState({ format: event.target.value });
-    // },
-
-    // handleReleaseYearChange(event) {
-    //     this.setState({ releaseYear: event.target.value });
-    // },
-
-    // handleTitleChange(event) {
-    //     this.setState({ title: event.target.value });
-    // },
 
     handleUserInput(e) {
         const name = e.target.name;

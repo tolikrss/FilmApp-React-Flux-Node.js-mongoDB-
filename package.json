@@ -13,6 +13,7 @@
     "url": "https://github.com/tolikrss"
   },
   "dependencies": {
+    "alasql": "^0.4.1",
     "axios": "^0.9.1",
     "body-parser": "^1.12.3",
     "classnames": "^2.2.3",
