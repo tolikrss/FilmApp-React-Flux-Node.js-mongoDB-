@@ -1,8 +1,6 @@
 import React from 'react';
 import Film from './Film.jsx';
 
-import Masonry from 'react-masonry-component';
-
 import './FilmsGrid.less';
 
 const FilmsGrid = React.createClass({
