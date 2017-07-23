@@ -21,7 +21,6 @@ const FilmsGrid = React.createClass({
 
     handleSort(event) {
         this.state.sort = event.target.value;
-        console.log('this.state.sort  = ' + this.state.sort);
         this.forceUpdate();
     },
     

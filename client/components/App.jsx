@@ -57,7 +57,6 @@ const App = React.createClass({
     },
 
     handleFindFilmByStars(stars) {
-        console.log('work');
         this.state.findByStars = stars;
         if(this.isStrNotEmpty(stars)) {
             FilmsActions.findFilmByStars(stars);
