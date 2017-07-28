@@ -7,7 +7,8 @@ import config from '../../etc/config.json';
 const Film = mongoose.model('Film');
 
 export function setUpConnection() {
-    mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`);
+    mongoose.connect(`mongodb://${config.db.dbuser}:${config.db.dbpassword}@ds111103.mlab.com:11103/filmsapp`);
+    // mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`);
 }
 
 export function listFilms() {
