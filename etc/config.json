@@ -1,5 +1,5 @@
 {
-    "apiPrefix": "https://myfilmapp.herokuapp.com/",
+    "apiPrefix": "https://myfilmapp.herokuapp.com",
     "serverPort": "8080",
     "db": {
         "dbuser": "tolikrss",
