@@ -1,1 +1,1 @@
-web: npm run serverheroku
+web: node dist/server/app.js
