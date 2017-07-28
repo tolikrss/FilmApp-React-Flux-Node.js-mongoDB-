@@ -32,7 +32,7 @@ app.use(function(req, res, next) {
 });
 
 
-app.use('/', express.static(path.join(__dirname, '../public'))); // отдача статистических файлов из /public
+app.use('/', express.static(path.join(__dirname, '../public'))); // отдача статистических файлов из /public, для heroku необходимо заменить ../public -> ../../public
 
 app.get('/films', (req, res) => {
     db.listFilms().then((data) => res.send(data));

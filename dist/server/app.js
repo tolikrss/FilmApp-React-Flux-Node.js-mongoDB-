@@ -56,7 +56,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/', _express2.default.static(_path2.default.join(__dirname, '../public'))); // отдача статистических файлов из /public
+app.use('/', _express2.default.static(_path2.default.join(__dirname, '../../public'))); // отдача статистических файлов из /public
 
 app.get('/films', function (req, res) {
     db.listFilms().then(function (data) {
