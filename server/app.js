@@ -143,6 +143,8 @@ app.delete('/films', (req, res) => {
     db.deleteAllFilms().then((data) => res.send(data));
 });
 
-const server = app.listen(serverPort, () => {
-    console.log(`Server is run up on port ${serverPort}`);
+var port = process.env.PORT || serverPort; // for Heroku
+
+const server = app.listen(port, () => {
+    console.log(`Server is run up on port ${port}`);
 });

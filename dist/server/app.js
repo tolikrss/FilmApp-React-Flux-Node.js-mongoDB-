@@ -183,6 +183,8 @@ app.delete('/films', function (req, res) {
     });
 });
 
-var server = app.listen(_config.serverPort, function () {
-    console.log('Server is run up on port ' + _config.serverPort);
+var port = process.env.PORT || _config.serverPort; // for Heroku
+
+var server = app.listen(port, function () {
+    console.log('Server is run up on port ' + port);
 });
