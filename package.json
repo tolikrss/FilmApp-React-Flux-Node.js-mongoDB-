@@ -5,7 +5,8 @@
   "scripts": {
     "server": "babel-node server/app.js",
     "devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8090 --host 0.0.0.0",
-    "deploy": "webpack -p --config webpack.config.js"
+    "deploy": "webpack -p --config webpack.config.js",
+    "start": "./node_modules/.bin/babel-node  main.es6"
   },
   "author": {
     "name": "Anatoliy Lakhno",
