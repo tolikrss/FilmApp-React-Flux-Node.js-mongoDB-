@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 import '../models/Film';
 
-import config from '../../etc/config.json';
+// import config from '../../etc/config.json';
+import config from '../../etc/configForLocalDB.json';
 
 const Film = mongoose.model('Film');
 
