@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { apiPrefix } from '../../etc/config.json';
+// import { apiPrefix } from '../../etc/configForLocalDB.json';
 
 export default {
     clearDB() {
