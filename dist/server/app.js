@@ -35,6 +35,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 db.setUpConnection();
+// import { serverPort, apiPrefix } from '../etc/configForLocalDB.json'
 
 var app = (0, _express2.default)();
 
@@ -56,7 +57,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/', _express2.default.static(_path2.default.join(__dirname, '../../public'))); // отдача статистических файлов из /public
+app.use('/', _express2.default.static(_path2.default.join(__dirname, '../public'))); // отдача статистических файлов из /public, для heroku необходимо заменить ../public -> ../../public
 
 app.get('/films', function (req, res) {
     db.listFilms().then(function (data) {
