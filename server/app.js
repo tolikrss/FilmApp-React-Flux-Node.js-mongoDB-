@@ -5,8 +5,8 @@ import path from 'path';
 import axios from 'axios';
 import multer from 'multer';
 
-import { serverPort, apiPrefix } from '../etc/config.json'
-// import { serverPort, apiPrefix } from '../etc/configForLocalDB.json'
+// import { serverPort, apiPrefix } from '../etc/config.json'
+import { serverPort, apiPrefix } from '../etc/configForLocalDB.json'
 
 import * as db from './utils/DataBaseUtils.js';
 
